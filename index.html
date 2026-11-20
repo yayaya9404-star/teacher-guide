@@ -380,7 +380,7 @@ body.editing figcaption:empty::before{content:"이미지 설명 (비워 두어�
     <h2><span class="no">1</span>다우메신저 방 구분</h2>
     <div class="tw"><table>
       <tbody><tr><th>방</th><th>올리는 내용</th><th>유의사항</th></tr>
-      <tr><td><b>전체방</b></td><td>학부모님께 미리 전달받은 결석, 학생이 남거나 일찍 오는 경우, 미등원 등 전달사항<br><b>수업 후 남는 학생 명단</b></td><td><span class="tag red">명단 필수</span></td></tr>
+      <tr><td><b>전체방</b></td><td class="">학부모님께 미리 전달받은 결석, 학생이 남거나 일찍 오는 경우,<br>미등원, <b>수업 후 남는 학생 명단</b> 등 전달사항<br></td><td><span class="tag red">명단 필수</span></td></tr>
       <tr><td><b>공지방</b></td><td>본사 공지, 향후 변경 사항</td><td><span class="tag red">답글 금지</span> 체크로 확인 표시만</td></tr>
       <tr><td><b>문인시방</b></td><td>점수 수정 등 Q앱 관련 사항</td><td>–</td></tr>
     </tbody></table></div>
@@ -446,7 +446,7 @@ body.editing figcaption:empty::before{content:"이미지 설명 (비워 두어�
 
   <section class="card">
     <h2><span class="no">5</span>퇴원상담</h2>
-    <p>퇴원 방어를 위한 상담입니다. 상담 후 IMS에 반드시 <code>[퇴원상담]</code>으로 기록하고, 퇴원신청서를 작성하여 BM님께 제출해 주십시오.</p>
+    <p class="">퇴원 방어를 위한 상담입니다. <br>상담 전 반드시 BM님 또는 팀장/선임님과 상의 후 진행하시고<br>상담 후에는 IMS에&nbsp;&nbsp;<code>[퇴원상담]</code>으로 기록하고, 퇴원신청서를 작성하여 BM님께 제출해 주십시오.</p>
   </section>
 
   <section class="card">
@@ -517,7 +517,7 @@ body.editing figcaption:empty::before{content:"이미지 설명 (비워 두어�
     <div class="tw"><table>
       <tbody><tr><th>시기</th><th>할 일</th></tr>
       <tr><td><b>설명회 전날 (금)</b></td><td>교무실 책상 위를 모두 정리하고 BEST BOOK 교재를 전시합니다.</td></tr>
-      <tr><td><b>설명회 당일</b></td><td>설명회는 보통 오전 11시에 시작합니다. 강사님은 <b>오전 10시 30분까지</b> 출근해 주십시오.</td></tr>
+      <tr><td><b>설명회 당일</b></td><td class="">설명회는 보통 오전 11시에 시작합니다. 선생님은 <b>오전 10시 30분까지</b> 출근해 주십시오.</td></tr>
     </tbody></table></div>
   </section>
 </div>
@@ -537,7 +537,7 @@ body.editing figcaption:empty::before{content:"이미지 설명 (비워 두어�
   <section class="card">
     <h2><span class="no">2</span>수업 후 — 출결·과제 결과 문자</h2>
     <div class="warn"><b>수업이 끝나고 15분 이내에</b> 출결과 과제 결과 문자를 보내 주십시오.</div>
-    <p><code>#NAME#</code>에는 학생 이름이 들어가며, 마지막 <code>○○ T.</code>에는 본인 영어 이름을 넣습니다. 학생 상황에 맞는 문구를 골라 보내 주십시오.</p>
+    <p class=""><code>#NAME#</code>에는 학생 이름이 자동으로 들어가며, 마지막 <code>○○ T.</code>에는 선생님의 영어 이름을 넣습니다. 학생 상황에 맞는 문구를 골라 보내 주십시오. (정리된 엑셀 파일은 선임님, 팀장님에게 요청하세요)</p>
     <div class="tpls">
       <div class="tpl"><div class="tpl-head"><span class="tpl-label">모든 숙제 완료</span><button class="tcopy" type="button">복사</button></div><div class="tpl-text">[남동탄JLS - 과제 결과 안내] #NAME# 학생의 모든 숙제가 완벽하여 오늘 수업이 기대됩니다. 칭찬 많이 해 주세요^^ - ○○ T.</div></div>
       <div class="tpl"><div class="tpl-head"><span class="tpl-label">CHESS Book 숙제 미흡</span><button class="tcopy" type="button">복사</button></div><div class="tpl-text">[남동탄JLS - 과제 결과 안내] #NAME# 학생의 다른 숙제는 완벽하나 CHESS Book 숙제가 미흡하여 다음 시간까지 해오도록 지도하였습니다. - ○○ T.</div></div>
@@ -811,4 +811,5 @@ document.querySelectorAll('.tcopy').forEach(b=>b.addEventListener('click',async(
   try{ await navigator.clipboard.writeText(t); b.textContent='복사됨'; b.classList.add('done'); setTimeout(()=>{b.textContent='복사';b.classList.remove('done')},1500);}catch(e){ b.textContent='복사 불가'; }
 }));
 </script>
+
 </body></html>
