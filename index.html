@@ -153,6 +153,13 @@ body.editing .imgBtn.del{border-color:var(--accent);background:var(--accent-soft
 figcaption:empty{display:none}
 body.editing figcaption:empty{display:block;min-height:1.6em}
 body.editing figcaption:empty::before{content:"이미지 설명 (비워 두어도 됩니다)";color:var(--ink-3)}
+.tpls{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.tpl{border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--surface)}
+.tpl-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px}
+.tpl-label{font-size:13px;font-weight:700;color:var(--navy)}
+.tpl-text{font-size:14px;color:var(--ink);line-height:1.65}
+.tcopy{border:1px solid var(--line);background:var(--surface);border-radius:6px;font:inherit;font-size:12px;padding:2px 10px;cursor:pointer;color:var(--ink-2);flex:none}
+.tcopy.done{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
 </style>
 </head>
 <body class="">
@@ -253,6 +260,16 @@ body.editing figcaption:empty::before{content:"이미지 설명 (비워 두어�
       <li>Chapter/Lesson을 선택하고, <b>인원</b>은 직접 입력합니다.</li>
       <li>시험을 마친 반은 신청 목록에서 <b>진행완료</b>로 변경해 주십시오.</li>
     </ol>
+  </section>
+
+  <section class="card">
+    <h2><span class="no">3</span>시험 범위</h2>
+    <div class="tw"><table>
+      <tbody><tr><th>시험</th><th>범위</th></tr>
+      <tr><td><b>CHAT</b></td><td>2단원마다 실시 (확인 필요)</td></tr>
+      <tr><td><b>문인시</b></td><td>반드시 응시해야 하는 필수 범위가 정해져 있습니다. 범위표는 아래에 추가될 예정입니다.</td></tr>
+    </tbody></table></div>
+    <div class="todo">문인시 필수 범위표(엑셀) 추가 예정</div>
   </section>
 </div>
 
@@ -363,10 +380,11 @@ body.editing figcaption:empty::before{content:"이미지 설명 (비워 두어�
     <h2><span class="no">1</span>다우메신저 방 구분</h2>
     <div class="tw"><table>
       <tbody><tr><th>방</th><th>올리는 내용</th><th>유의사항</th></tr>
-      <tr><td><b>전체방</b></td><td>학부모님께 미리 전달받은 결석, 학생이 남거나 일찍 오는 경우, 미등원 등 전달사항</td><td>–</td></tr>
+      <tr><td><b>전체방</b></td><td>학부모님께 미리 전달받은 결석, 학생이 남거나 일찍 오는 경우, 미등원 등 전달사항<br><b>수업 후 남는 학생 명단</b></td><td><span class="tag red">명단 필수</span></td></tr>
       <tr><td><b>공지방</b></td><td>본사 공지, 향후 변경 사항</td><td><span class="tag red">답글 금지</span> 체크로 확인 표시만</td></tr>
       <tr><td><b>문인시방</b></td><td>점수 수정 등 Q앱 관련 사항</td><td>–</td></tr>
     </tbody></table></div>
+    <div class="warn"><b>수업 후 남는 학생 명단은 반드시 전체방에 올려 주십시오.</b> 셔틀 안내를 위한 명단입니다. 명단이 없으면 셔틀이 계속 대기하게 되고, 주정차 위반 단속을 받을 수 있습니다.</div>
   </section>
 
   <section class="card">
@@ -430,6 +448,12 @@ body.editing figcaption:empty::before{content:"이미지 설명 (비워 두어�
     <h2><span class="no">5</span>퇴원상담</h2>
     <p>퇴원 방어를 위한 상담입니다. 상담 후 IMS에 반드시 <code>[퇴원상담]</code>으로 기록하고, 퇴원신청서를 작성하여 BM님께 제출해 주십시오.</p>
   </section>
+
+  <section class="card">
+    <h2><span class="no">6</span>IMS 성적표</h2>
+    <p>IMS 성적표 작성 방법을 안내합니다.</p>
+    <div class="todo">작성 방법과 화면 캡처 추가 예정</div>
+  </section>
 </div>
 
 <!-- ============ 정기 업무 ============ -->
@@ -486,13 +510,50 @@ body.editing figcaption:empty::before{content:"이미지 설명 (비워 두어�
     <h2><span class="no">3</span>프렙데이</h2>
     <p>학기말 마지막 주 목·금요일 또는 금요일에 진행하는, 수업이 없는 날입니다. 해당일은 강사님 연차로 소진됩니다.</p>
   </section>
+
+  <section class="card">
+    <h2><span class="no">4</span>주말 출근 (설명회)</h2>
+    <p>학기 마지막 달에는 체험수업과 교재 설명을 위한 설명회로 주말에 출근할 수 있습니다. 설명회는 월 1회 진행될 수 있습니다.</p>
+    <div class="tw"><table>
+      <tbody><tr><th>시기</th><th>할 일</th></tr>
+      <tr><td><b>설명회 전날 (금)</b></td><td>교무실 책상 위를 모두 정리하고 BEST BOOK 교재를 전시합니다.</td></tr>
+      <tr><td><b>설명회 당일</b></td><td>설명회는 보통 오전 11시에 시작합니다. 강사님은 <b>오전 10시 30분까지</b> 출근해 주십시오.</td></tr>
+    </tbody></table></div>
+  </section>
 </div>
 
 <!-- ============ 수업 플로우 ============ -->
 <div class="panel" id="p-class">
-  <p class="lead">수업 플로우는 현재 정리 중이며, 완료되는 대로 이 탭에 추가됩니다.</p>
+  <p class="lead">수업 전·후에 보내는 문자 양식입니다. 수업 진행 순서는 현재 정리 중이며, 완료되는 대로 이 탭에 추가됩니다.</p>
+
   <section class="card">
-    <h2><span class="no">1</span>추가 예정 내용</h2>
+    <h2><span class="no">1</span>수업 전 — 숙제 미완료 알림</h2>
+    <p>출근 후 과제 완료 여부를 확인하고, 수업 전에 숙제를 완료하지 않은 학생의 학부모님께 아래 문자를 보냅니다.</p>
+    <div class="tpls">
+      <div class="tpl"><div class="tpl-head"><span class="tpl-label">숙제 미완료 알림 (수업 전)</span><button class="tcopy" type="button">복사</button></div><div class="tpl-text">[남동탄JLS - 숙제 미완료 알림]<br>안녕하세요, 정상어학원입니다.<br>#NAME# 학생의 오늘 숙제가 아직 완료되지 않아, 안내해 드립니다.<br>등원 전, 혹은 귀가 후에라도 반드시 완료하도록<br>격려 부탁드리겠습니다 ^^<br>혹시 과제를 다 했는데도 이 문자를 받으셨으면,<br>Self Check 항목이 남아 있지는 않은지 확인해 주세요 ^^<br>오늘도 즐거운 수업을 위해 정성을 다하겠습니다.<br>감사합니다. - ○○ T.</div></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2><span class="no">2</span>수업 후 — 출결·과제 결과 문자</h2>
+    <div class="warn"><b>수업이 끝나고 15분 이내에</b> 출결과 과제 결과 문자를 보내 주십시오.</div>
+    <p><code>#NAME#</code>에는 학생 이름이 들어가며, 마지막 <code>○○ T.</code>에는 본인 영어 이름을 넣습니다. 학생 상황에 맞는 문구를 골라 보내 주십시오.</p>
+    <div class="tpls">
+      <div class="tpl"><div class="tpl-head"><span class="tpl-label">모든 숙제 완료</span><button class="tcopy" type="button">복사</button></div><div class="tpl-text">[남동탄JLS - 과제 결과 안내] #NAME# 학생의 모든 숙제가 완벽하여 오늘 수업이 기대됩니다. 칭찬 많이 해 주세요^^ - ○○ T.</div></div>
+      <div class="tpl"><div class="tpl-head"><span class="tpl-label">CHESS Book 숙제 미흡</span><button class="tcopy" type="button">복사</button></div><div class="tpl-text">[남동탄JLS - 과제 결과 안내] #NAME# 학생의 다른 숙제는 완벽하나 CHESS Book 숙제가 미흡하여 다음 시간까지 해오도록 지도하였습니다. - ○○ T.</div></div>
+      <div class="tpl"><div class="tpl-head"><span class="tpl-label">쓰기 숙제 미흡</span><button class="tcopy" type="button">복사</button></div><div class="tpl-text">[남동탄JLS - 과제 결과 안내] #NAME# 학생의 다른 숙제는 완벽하나 쓰기 숙제가 미흡하여 다음 시간까지 해오도록 지도하였습니다. - ○○ T.</div></div>
+      <div class="tpl"><div class="tpl-head"><span class="tpl-label">녹음 숙제 미흡</span><button class="tcopy" type="button">복사</button></div><div class="tpl-text">[남동탄JLS - 과제 결과 안내] #NAME# 학생의 다른 숙제는 완벽하나 녹음 숙제가 미흡하여 다음 시간까지 해오도록 지도하였습니다. - ○○ T.</div></div>
+      <div class="tpl"><div class="tpl-head"><span class="tpl-label">Writing Portfolio 숙제 미흡</span><button class="tcopy" type="button">복사</button></div><div class="tpl-text">[남동탄JLS - 과제 결과 안내] #NAME# 학생의 다른 숙제는 완벽하나 Writing Portfolio 숙제가 미흡하여 다음 시간까지 해오도록 지도하였습니다. - ○○ T.</div></div>
+      <div class="tpl"><div class="tpl-head"><span class="tpl-label">문법 교재 숙제 미흡</span><button class="tcopy" type="button">복사</button></div><div class="tpl-text">[남동탄JLS - 과제 결과 안내] #NAME# 학생의 다른 숙제는 완벽하나 문법 교재 숙제가 미흡하여 다음 시간까지 해오도록 지도하였습니다. - ○○ T.</div></div>
+      <div class="tpl"><div class="tpl-head"><span class="tpl-label">Speaking Tree 숙제 미흡</span><button class="tcopy" type="button">복사</button></div><div class="tpl-text">[남동탄JLS - 과제 결과 안내] #NAME# 학생의 다른 숙제는 완벽하나 Speaking Tree 숙제가 미흡하여 다음 시간까지 해오도록 지도하였습니다. - ○○ T.</div></div>
+      <div class="tpl"><div class="tpl-head"><span class="tpl-label">교재 미지참</span><button class="tcopy" type="button">복사</button></div><div class="tpl-text">[남동탄JLS - 과제 결과 안내] #NAME# 학생이 OOO 교재를 가져오지 않았습니다. 다음 시간에는 챙겨 올 수 있도록 부탁드려요! - ○○ T.</div></div>
+      <div class="tpl"><div class="tpl-head"><span class="tpl-label">숙제 2개 이상 미완료</span><button class="tcopy" type="button">복사</button></div><div class="tpl-text">[남동탄JLS - 과제 결과 안내] #NAME# 학생의 2개 이상의 숙제가 미완료입니다. 매일 하는 숙제에 노력이 필요해요. - ○○ T.</div></div>
+      <div class="tpl"><div class="tpl-head"><span class="tpl-label">모든 숙제 미완료</span><button class="tcopy" type="button">복사</button></div><div class="tpl-text">[남동탄JLS - 과제 결과 안내] #NAME# 학생의 모든 숙제가 미완료입니다. 다음 수업 시간까지 완료하도록 격려 부탁드립니다. - ○○ T.</div></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2><span class="no">3</span>수업 진행 순서 (추가 예정)</h2>
     <div class="todo">
       <ul style="margin:0">
         <li>한 수업의 시간 배분 (단어시험, 진도, 숙제 검사 등)</li>
@@ -520,7 +581,7 @@ body.editing figcaption:empty::before{content:"이미지 설명 (비워 두어�
   <input type="password" autocomplete="off" placeholder="github_pat_...">
   <div class="row"><button type="button" class="x">취소</button><button type="submit">저장</button></div>
 </form></div>
-<div id="toast">저장했습니다. 1~2분 뒤 사이트에 반영됩니다.</div>
+<div id="toast"></div>
 <div id="lb" role="dialog" aria-label="이미지 크게 보기" class=""><img alt=""></div>
 
 <script>
@@ -580,7 +641,7 @@ body.editing figcaption:empty::before{content:"이미지 설명 (비워 두어�
     li.insertBefore(t, li.firstChild);
   });
 
-  const SEL='header.top h1, header.top p, .lead, h2, h3, main p, td, th, figcaption, .note, .warn, .rules b, .rules span, .flow div, .award b, .award span, .bb strong, .bb small, .checks label, .kv .v, .kv > span:first-child, .acct h4, ul:not(.checks) > li, .steps > li, .steps > li > .t';
+  const SEL='header.top h1, header.top p, .lead, h2, h3, main p, td, th, figcaption, .note, .warn, .rules b, .rules span, .flow div, .award b, .award span, .bb strong, .bb small, .checks label, .kv .v, .kv > span:first-child, .acct h4, ul:not(.checks) > li, .steps > li, .steps > li > .t, .tpl-label, .tpl-text';
   let cands=[...document.querySelectorAll(SEL)];
   const cset=new Set(cands);
   cands=cands.filter(el=>!el.querySelector('figure,ul,ol,table') && ![...el.querySelectorAll('*')].some(c=>cset.has(c)));
@@ -686,7 +747,7 @@ body.editing figcaption:empty::before{content:"이미지 설명 (비워 두어�
     root.querySelectorAll('[contenteditable],[spellcheck]').forEach(x=>{x.removeAttribute('contenteditable');x.removeAttribute('spellcheck');});
     root.querySelectorAll('.imgBtn').forEach(x=>x.remove());
     const lb=root.querySelector('#lb'); lb.classList.remove('on'); lb.querySelector('img').removeAttribute('src');
-    root.querySelector('#toast').removeAttribute('style');
+    root.querySelector('#toast').removeAttribute('style'); root.querySelector('#toast').textContent='';
     root.querySelector('#pwModal').classList.remove('on');
     root.querySelector('#tokModal') && root.querySelector('#tokModal').classList.remove('on');
     return '<!DOCTYPE html>\n'+root.outerHTML;
@@ -742,4 +803,12 @@ body.editing figcaption:empty::before{content:"이미지 설명 (비워 두어�
 </script>
 
 
+<script>
+document.querySelectorAll('.tcopy').forEach(b=>b.addEventListener('click',async()=>{
+  if(document.body.classList.contains('editing')) return;
+  const el=b.closest('.tpl').querySelector('.tpl-text');
+  const t=el.innerText.trim();
+  try{ await navigator.clipboard.writeText(t); b.textContent='복사됨'; b.classList.add('done'); setTimeout(()=>{b.textContent='복사';b.classList.remove('done')},1500);}catch(e){ b.textContent='복사 불가'; }
+}));
+</script>
 </body></html>
