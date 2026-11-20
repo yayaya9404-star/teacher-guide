@@ -138,16 +138,16 @@ body.editing [data-ek].changed{outline-color:var(--gold)}
 .imgBtn{display:none}
 body.editing .imgBtn{display:inline-block;margin-top:6px;border:1px solid var(--navy);background:var(--navy-soft);color:var(--navy);font:inherit;font-size:13px;padding:4px 12px;border-radius:8px;cursor:pointer}
 body.editing figure img{cursor:default}
-#pwModal{position:fixed;inset:0;background:rgba(15,20,30,.5);display:none;align-items:center;justify-content:center;z-index:60;padding:20px}
-#pwModal.on{display:flex}
-#pwModal form{background:var(--surface);border-radius:14px;padding:22px;width:100%;max-width:340px}
-#pwModal h4{margin:0 0 4px;font-size:17px}
-#pwModal p{margin:0 0 12px;font-size:13.5px;color:var(--ink-2)}
-#pwModal input{width:100%;font:inherit;padding:9px 12px;border:1px solid var(--line);border-radius:8px}
+#pwModal,#tokModal{position:fixed;inset:0;background:rgba(15,20,30,.5);display:none;align-items:center;justify-content:center;z-index:60;padding:20px}
+#pwModal.on,#tokModal.on{display:flex}
+#pwModal form,#tokModal form{background:var(--surface);border-radius:14px;padding:22px;width:100%;max-width:340px}
+#pwModal h4,#tokModal h4{margin:0 0 4px;font-size:17px}
+#pwModal p,#tokModal p{margin:0 0 12px;font-size:13.5px;color:var(--ink-2)}
+#pwModal input,#tokModal input{width:100%;font:inherit;padding:9px 12px;border:1px solid var(--line);border-radius:8px}
 #pwModal .err{color:var(--accent);font-size:13px;min-height:20px;margin:6px 0 0}
-#pwModal .row{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
-#pwModal button{font:inherit;font-size:14px;padding:7px 16px;border-radius:8px;cursor:pointer;border:1px solid var(--line);background:var(--surface)}
-#pwModal button[type=submit]{background:var(--navy);color:#fff;border-color:var(--navy)}
+#pwModal .row,#tokModal .row{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
+#pwModal button,#tokModal button{font:inherit;font-size:14px;padding:7px 16px;border-radius:8px;cursor:pointer;border:1px solid var(--line);background:var(--surface)}
+#pwModal button[type=submit],#tokModal button[type=submit]{background:var(--navy);color:#fff;border-color:var(--navy)}
 #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1E2433;color:#fff;font-size:14px;padding:9px 18px;border-radius:999px;z-index:70;display:none;max-width:90vw;text-align:center}
 #editBar .addimg{background:#4A6FA5;color:#fff}
 body.editing .imgBtn.del{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);margin-left:6px}
@@ -164,7 +164,7 @@ body.editing figcaption:empty::before{content:"이미지 설명 (비워 두어�
 </div></header>
 
 
-<div id="editBar"><div class="wrap"><span class="msg">편집 중입니다. 점선 글을 눌러 고치세요. 이미지는 넣을 위치의 글을 누른 뒤 + 이미지를 누르세요.</span><button class="addimg" type="button">+ 이미지</button><button class="cancel" type="button">취소</button><button class="save" type="button">저장 (파일 받기)</button></div></div>
+<div id="editBar"><div class="wrap"><span class="msg">편집 중입니다. 점선 글을 눌러 고치세요. 이미지는 넣을 위치의 글을 누른 뒤 + 이미지를 누르세요.</span><button class="addimg" type="button">+ 이미지</button><button class="cancel" type="button">취소</button><button class="save" type="button">저장</button></div></div>
 <nav class="tabs" aria-label="가이드 목차"><div class="wrap" role="tablist">
   <button role="tab" data-tab="start">시작하기</button>
   <button role="tab" data-tab="exam">시험 규정</button>
@@ -516,6 +516,11 @@ body.editing figcaption:empty::before{content:"이미지 설명 (비워 두어�
   <div class="err"></div>
   <div class="row"><button type="button" class="x">닫기</button><button type="submit">확인</button></div>
 </form></div>
+<div id="tokModal" class="pwm" role="dialog" aria-label="GitHub 토큰"><form>
+  <h4>GitHub 토큰 입력</h4><p>이 컴퓨터에서 처음 저장할 때 한 번만 입력합니다. 입력한 토큰은 이 브라우저에만 기억됩니다.</p>
+  <input type="password" autocomplete="off" placeholder="github_pat_...">
+  <div class="row"><button type="button" class="x">취소</button><button type="submit">저장</button></div>
+</form></div>
 <div id="toast"></div>
 <div id="lb" role="dialog" aria-label="이미지 크게 보기"><img alt=""></div>
 
@@ -673,21 +678,66 @@ body.editing figcaption:empty::before{content:"이미지 설명 (비워 두어�
 
   document.querySelector('#editBar .cancel').addEventListener('click',()=>{ location.reload(); });
 
-  document.querySelector('#editBar .save').addEventListener('click',()=>{
-    stopEdit();
+  function buildHtml(){
     const root=document.documentElement.cloneNode(true);
     root.querySelector('body').classList.remove('editing');
     root.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
     root.querySelectorAll('nav.tabs button').forEach(b=>b.removeAttribute('aria-selected'));
     root.querySelectorAll('#checks input').forEach(c=>c.removeAttribute('checked'));
+    root.querySelectorAll('[contenteditable],[spellcheck]').forEach(x=>{x.removeAttribute('contenteditable');x.removeAttribute('spellcheck');});
+    root.querySelectorAll('.imgBtn').forEach(x=>x.remove());
     const lb=root.querySelector('#lb'); lb.classList.remove('on'); lb.querySelector('img').removeAttribute('src');
-    const ts=root.querySelector('#toast'); ts.removeAttribute('style');
+    root.querySelector('#toast').removeAttribute('style');
     root.querySelector('#pwModal').classList.remove('on');
-    const html='<!DOCTYPE html>\n'+root.outerHTML;
-    const blob=new Blob([html],{type:'text/html'});
-    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=FILE_NAME;
+    root.querySelector('#tokModal') && root.querySelector('#tokModal').classList.remove('on');
+    return '<!DOCTYPE html>\n'+root.outerHTML;
+  }
+  function download(html){
+    const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([html],{type:'text/html'})); a.download=FILE_NAME;
     document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);
-    toast('고친 파일을 내려받았습니다. 이 파일을 새로 보내거나 올려 주세요.',4500);
+  }
+
+  // GitHub 저장소 (사이트 주소에서 자동으로 알아냄: 계정.github.io/저장소/)
+  const GH = (()=>{ const h=location.hostname, m=h.match(/^([\w-]+)\.github\.io$/); const repo=location.pathname.split('/').filter(Boolean)[0];
+    return (m && repo) ? {owner:m[1], repo, path:'index.html'} : null; })();
+  const TOK_KEY='ndt-guide-gh-token';
+  const getTok=()=>{ try{return localStorage.getItem(TOK_KEY)||''}catch(e){return ''} };
+  const setTok=t=>{ try{ t?localStorage.setItem(TOK_KEY,t):localStorage.removeItem(TOK_KEY);}catch(e){} };
+  function askToken(){
+    return new Promise(res=>{
+      const m=document.getElementById('tokModal'), f=m.querySelector('form'), i=f.querySelector('input');
+      i.value=''; m.classList.add('on'); setTimeout(()=>i.focus(),30);
+      f.onsubmit=e=>{e.preventDefault(); m.classList.remove('on'); res(i.value.trim());};
+      f.querySelector('.x').onclick=()=>{ m.classList.remove('on'); res(''); };
+    });
+  }
+  function b64(str){ const bytes=new TextEncoder().encode(str); let bin=''; for(let i=0;i<bytes.length;i+=0x8000) bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+0x8000)); return btoa(bin); }
+  async function pushToGitHub(html){
+    let tok=getTok(); if(!tok){ tok=await askToken(); if(!tok) return 'cancel'; }
+    const url=`https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${GH.path}`;
+    const hd={'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json'};
+    const cur=await fetch(url+'?t='+Date.now(),{headers:hd,cache:'no-store'});
+    if(cur.status===401||cur.status===403){ setTok(''); return 'token'; }
+    if(!cur.ok) return 'fail:'+cur.status;
+    const sha=(await cur.json()).sha;
+    const put=await fetch(url,{method:'PUT',headers:Object.assign({'Content-Type':'application/json'},hd),body:JSON.stringify({message:'가이드 수정 '+new Date().toLocaleString('ko-KR'),content:b64(html),sha})});
+    if(put.status===401||put.status===403){ setTok(''); return 'token'; }
+    if(!put.ok) return 'fail:'+put.status;
+    setTok(tok); return 'ok';
+  }
+
+  document.querySelector('#editBar .save').addEventListener('click',async()=>{
+    const btn=document.querySelector('#editBar .save');
+    stopEdit();
+    const html=buildHtml();
+    if(!GH){ download(html); toast('고친 파일을 내려받았습니다.',3500); return; }
+    btn.disabled=true; toast('저장하는 중입니다…',20000);
+    let r; try{ r=await pushToGitHub(html); }catch(e){ r='fail'; }
+    btn.disabled=false;
+    if(r==='ok') toast('저장했습니다. 1~2분 뒤 사이트에 반영됩니다.',5000);
+    else if(r==='cancel'){ startEdit(); toast('저장을 취소했습니다. 고친 내용은 아직 화면에 남아 있습니다.',4000); }
+    else if(r==='token'){ startEdit(); toast('토큰이 맞지 않거나 권한이 없습니다. 저장을 다시 눌러 토큰을 넣어 주세요.',5000); }
+    else { startEdit(); toast('저장하지 못했습니다('+r+'). 잠시 후 다시 시도해 주세요.',5000); }
   });
 })();
 </script>
